@@ -4,19 +4,22 @@ import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.Date;
 
+//Sends date and time to client.
 
 public class Server {
     public static void main(String[] args) throws IOException {
         ServerSocket listener = new ServerSocket(9090);
+        String hello = "Hello from the Server!";
         try {
             while (true) {
                 Socket socket = listener.accept();
                 try {
-                    PrintWriter out =
-                        new PrintWriter(socket.getOutputStream(), true);
+                    PrintWriter out = new PrintWriter(socket.getOutputStream(), true);
                     out.println(new Date().toString());
+                    out.println(hello);
                 } finally {
                     socket.close();
+                    
                 }
             }
         }
@@ -24,4 +27,7 @@ public class Server {
             listener.close();
         }
     }
+    
+    
+    
 }
