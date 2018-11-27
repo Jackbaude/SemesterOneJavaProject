@@ -3,9 +3,7 @@ import java.io.PrintWriter;
 import java.net.ServerSocket;
 import java.net.Socket;
 
-
 //Sends date and time to client.
-
 public class Server {
     public static void main(String[] args) throws IOException {
         ServerSocket listener = new ServerSocket(9090);
