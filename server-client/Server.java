@@ -28,8 +28,5 @@ public class Server {
         finally {
             listener.close();
         }
-    }
-    
-    
-    
+    }  
 }
