@@ -12,13 +12,12 @@ class ServerGUi{
     };
     public static String[] columns = new String[] {
             "Number", "I.P", "UP TIME"};
+    
     public static JTable table = new JTable(data, columns); 
 	//////////////////MAIN//////////////////////
     public static void main(String[] args) {
 		dashboardWindowMake();
-		
 	}	
-	
     public static void dashboardWindowMake() {
 		dashboard.setVisible(true);	
 		dashboard.setTitle("Dashboard Information");
