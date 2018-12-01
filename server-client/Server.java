@@ -6,7 +6,12 @@ import java.net.Socket;
 //Sends date and time to client.
 public class Server {
     public static void main(String[] args) throws IOException {
-        ServerSocket listener = new ServerSocket(9090);
+    	
+    	
+    	
+    	
+    	
+    	ServerSocket listener = new ServerSocket(9090);
         String hello = "Hello from the Server!";
         java.util.Date date=new java.util.Date();  
 		
@@ -26,5 +31,6 @@ public class Server {
         finally {
             listener.close();
         }
-    }  
+    }
+    
 }
