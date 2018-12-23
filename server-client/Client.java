@@ -4,7 +4,7 @@ import java.io.InputStreamReader;
 import java.net.Socket;
 import java.net.URL;
 import java.util.*;
-import java.net.URL;
+//import java.net.URL;
 
 public class Client {
 	public static int vmNumber = 0;
@@ -23,18 +23,19 @@ public class Client {
         s.close();
         System.exit(0);
     }
-    public static void ipaddress() {
+    public static String ipaddress() {
     	
         try 
         {
             URL url_name = new URL("http://bot.whatismyipaddress.com");
             BufferedReader sc = new BufferedReader(new InputStreamReader(url_name.openStream()));
             systemipaddress = sc.readLine().trim();
+            return systemipaddress;
             
         }    
         catch (Exception e2) 
         {
-            systemipaddress = "Cannot Execute Properly";
+            return "Cannot get IP address";
         }
         
     }
