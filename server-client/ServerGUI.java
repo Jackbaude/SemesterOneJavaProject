@@ -16,11 +16,8 @@ class ServerGUi {
 		if (c != 0) {
 			data[c - 1][0] = (c);
 			data[c - 1][1] = Client.ipaddress();
-			
+	
 		}
-
-		
-		
 		dashboard.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		dashboard.pack();
 	}

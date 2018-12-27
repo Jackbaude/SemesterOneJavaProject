@@ -20,7 +20,7 @@ public class Client {
         BufferedReader input = new BufferedReader(new InputStreamReader(s.getInputStream()));
         String welcome = input.readLine();
         System.out.println(welcome);
-        s.close();
+        
         
     }
     public static String ipaddress() {

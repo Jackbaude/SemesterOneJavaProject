@@ -2,7 +2,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.net.ServerSocket;
 import java.net.Socket;
-import java.util.*;
+
 //Sends date and time to client.
 public class Server {
     public static int NumVMs = 0;
@@ -17,7 +17,7 @@ public class Server {
                 try {
                     PrintWriter out = new PrintWriter(socket.getOutputStream(), true);
                     out.println(welcome.toString());
-                    ServerGUi.data[0][0] = "This some how worked";
+                    ServerGUi.data[NumVMs][0] = "what";
                     NumVMs++;
                     
                 } finally {
