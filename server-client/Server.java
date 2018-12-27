@@ -1,33 +1,34 @@
+import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.ServerSocket;
 import java.net.Socket;
-
-//Sends date and time to client.
 public class Server {
-    public static int NumVMs = 0;
-	public static void main(String[] args) throws IOException {
-    	//Scanner scan = new Scanner(System.in);
-		ServerSocket listener = new ServerSocket(9090);
-        String welcome = "Thank you for connecting!";
+	public static String ip;
+	public static String time;
+	private static ServerSocket server;
+	public static void main(String[] args)throws IOException { 
+		ServerSocket server = new ServerSocket(9090);
+		try ( 	
+			    
+			    Socket clientSocket = server.accept();
+			    PrintWriter out = new PrintWriter(clientSocket.getOutputStream(), true);
+			    BufferedReader in = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
+			){
+			out.println("welcome");
+			ip = in.readLine();
+			time = in.readLine();
+			System.out.println(ip);
+			System.out.println(time);
+		}
+		
+		finally {
+			server.close();
+		}
+		}
         
-        try {
-            while (true) {
-                Socket socket = listener.accept();
-                try {
-                    PrintWriter out = new PrintWriter(socket.getOutputStream(), true);
-                    out.println(welcome.toString());
-                    ServerGUi.data[NumVMs][0] = "what";
-                    NumVMs++;
-                    
-                } finally {
-                    socket.close();    
-                }
-            }
-        }
-        finally {
-            listener.close();
-        }
-    }
-    
+
+	
+
 }
