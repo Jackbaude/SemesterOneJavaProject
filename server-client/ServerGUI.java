@@ -12,11 +12,11 @@ class ServerGUi {
 		dashboard.setBounds((960 - 250), (540 - 250), 500, 500);
 		JTable table = new JTable(data, columnHeaders); 
 		dashboard.add(new JScrollPane(table));
-		int c = Client.vmNumber;
+		int c = Server.numVMs;
 		if (c != 0) {
 			data[c - 1][0] = (c);
-			data[c - 1][1] = Client.ipaddress();
-	
+			data[c - 1][1] = Server.ip;
+			data[c -1][2] = Server.time;
 		}
 		dashboard.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		dashboard.pack();

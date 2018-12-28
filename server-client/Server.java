@@ -5,6 +5,7 @@ import java.io.PrintWriter;
 import java.net.ServerSocket;
 import java.net.Socket;
 public class Server {
+	public static int numVMs = 0;
 	public static String ip;
 	public static String time;
 	private static ServerSocket server;
@@ -19,8 +20,11 @@ public class Server {
 			out.println("welcome");
 			ip = in.readLine();
 			time = in.readLine();
+			//out.println(numVMs);
+			numVMs++;
 			System.out.println(ip);
 			System.out.println(time);
+			
 		}
 		
 		finally {

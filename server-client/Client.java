@@ -8,15 +8,16 @@ import java.time.LocalDateTime;
 import java.util.*;
 
 public class Client {
-	//public static int vmNumber = Server.NumVMs;
+	//public static int vmNumber = 
+	
 	public static String ipin() {
 		Scanner scanip = new Scanner(System.in);
 		String ip = scanip.nextLine();
 		scanip.close();
 		return ip;
 	}
-   
-    public static String ipaddress() {
+
+    public static String getmyipaddress() {
         try 
         {
             URL url_name = new URL("http://bot.whatismyipaddress.com");
@@ -37,16 +38,18 @@ public class Client {
     	System.out.println("Enter IP Address of a machine that is \n" + "running the VM service on port 9090:");
     	Socket s = new Socket(ipin(), 9090);
         BufferedReader input = new BufferedReader(new InputStreamReader(s.getInputStream()));
+        
         String welcome = input.readLine();
         System.out.println(welcome);
         
         //collect ip address
-        String systemipaddress = ipaddress();
+        String systemipaddress = getmyipaddress();
 		//collect time 
 		String time = time();
 		
 		PrintWriter out = new PrintWriter(s.getOutputStream(), true);
-        out.println(systemipaddress);
+        
+		out.println(systemipaddress);
         out.println(time);
         //start VM
         /*if (somthing){
@@ -54,5 +57,11 @@ public class Client {
     	}
     */
     }
-    
+    /*
+    public static int vmNumber() {
+ 	   BufferedReader input = new BufferedReader(new InputStreamReader(s.getInputStream()));
+ 	   return 0;
+ 	   
+    }
+    */
 }
