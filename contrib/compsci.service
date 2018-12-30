@@ -1,0 +1,11 @@
+[Unit]
+Description=compsci
+After=network.target
+StartLimitIntervalSec=0
+[Service]
+Type=simple
+User=root
+ExecStart=/usr/bin/java -jar /home/baude/client.jar
+
+[Install]
+WantedBy=multi-user.target
