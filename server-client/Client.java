@@ -5,17 +5,9 @@ import java.io.PrintWriter;
 import java.net.Socket;
 import java.net.URL;
 import java.time.LocalDateTime;
-import java.util.*;
+//import java.util.*;
 
 public class Client {
-	//public static int vmNumber = 
-	
-	public static String ipin() {
-		Scanner scanip = new Scanner(System.in);
-		String ip = scanip.nextLine();
-		scanip.close();
-		return ip;
-	}
 
     public static String getmyipaddress() {
         try 
@@ -35,8 +27,8 @@ public class Client {
     	return (uptime.toString());
     }
     public static void main(String[] args) throws IOException {
-    	System.out.println("Enter IP Address of a machine that is \n" + "running the VM service on port 9090:");
-    	Socket s = new Socket(ipin(), 9090);
+    	System.out.println("Client Running");
+    	Socket s = new Socket("192.168.122.1", 9090);
         BufferedReader input = new BufferedReader(new InputStreamReader(s.getInputStream()));
         
         String welcome = input.readLine();
@@ -57,11 +49,5 @@ public class Client {
     	}
     */
     }
-    /*
-    public static int vmNumber() {
- 	   BufferedReader input = new BufferedReader(new InputStreamReader(s.getInputStream()));
- 	   return 0;
- 	   
-    }
-    */
+  
 }
