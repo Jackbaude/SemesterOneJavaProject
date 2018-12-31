@@ -15,6 +15,10 @@ public class Server {
 	public static  Object[][] data = new Object[50][3];
 	public static String[] columnHeaders = new String[] {
             "Number", "I.P", "Up Time"};
+	//dashboard code
+	/*TODO make my dashboard dynamic
+	use addRow jframe class
+	*/
 	public static void dashboard() {
 		JFrame dashboard = new JFrame("Dashboard");
     	dashboard.setVisible(true);	
@@ -32,30 +36,37 @@ public class Server {
 		dashboard.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		dashboard.pack();
 	}
-	public static void main(String[] args)throws IOException { 
+	
+	public static void main(String[] args)throws IOException, InterruptedException { 
 		dashboard();
 		System.out.println("Server Running");
 		ServerSocket server = new ServerSocket(9090);
-		try ( 	 
-			    Socket clientSocket = server.accept();
-			    PrintWriter out = new PrintWriter(clientSocket.getOutputStream(), true);
-			    BufferedReader in = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
-			){
-			out.println("welcome");
-			ip = in.readLine();
-			time = in.readLine();
-
-			numVMs++;
-			System.out.println(ip);
-			System.out.println(time);
+		int connattempt = 0;
+		while (connattempt <= 10) {
+			try ( 	
+				    Socket clientSocket = server.accept();
+					PrintWriter out = new PrintWriter(clientSocket.getOutputStream(), true);
+				    BufferedReader in = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
+				    
+				){
+				out.println("welcome");
+				ip = in.readLine();
+				time = in.readLine();
+	
+				numVMs++;
+				System.out.println(ip);
+				System.out.println(time);
+			}
+			catch (Exception e) {
+				connattempt++;
+				Thread.sleep(1000);
+			}
 			
+			finally {
+				//server.close();
+			}
 		}
-		
-		finally {
-			server.close();
-		}
-		}
-        
+	}
 
 	
 
