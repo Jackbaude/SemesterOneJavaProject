@@ -41,31 +41,24 @@ public class Server {
 		dashboard();
 		System.out.println("Server Running");
 		ServerSocket server = new ServerSocket(9090);
-		int connattempt = 0;
-		while (connattempt <= 10) {
-			try ( 	
-				    Socket clientSocket = server.accept();
-					PrintWriter out = new PrintWriter(clientSocket.getOutputStream(), true);
-				    BufferedReader in = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
-				    
-				){
-				out.println("welcome");
-				ip = in.readLine();
-				time = in.readLine();
-	
-				numVMs++;
-				System.out.println(ip);
-				System.out.println(time);
-			}
-			catch (Exception e) {
-				connattempt++;
-				Thread.sleep(1000);
-			}
-			
-			finally {
-				//server.close();
-			}
+		try ( 	
+			    Socket clientSocket = server.accept();
+				PrintWriter out = new PrintWriter(clientSocket.getOutputStream(), true);
+			    BufferedReader in = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
+			    
+			){
+			out.println("welcome");
+			ip = in.readLine();
+			time = in.readLine();
+
+			numVMs++;
+			System.out.println(ip);
+			System.out.println(time);
 		}
+		finally {
+			//server.close();
+		}
+	
 	}
 
 	
