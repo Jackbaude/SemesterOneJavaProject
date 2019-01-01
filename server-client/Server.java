@@ -40,13 +40,14 @@ public class Server {
 		//dashboard();
 		try {
 		ServerSocket server = new ServerSocket(9090);
+		System.out.println("Server Running");
 			while (true) {
 				try ( 	
 						Socket clientSocket = server.accept();
 						PrintWriter out = new PrintWriter(clientSocket.getOutputStream(), true);
 					    BufferedReader in = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
 					){
-					System.out.println("Server Running");
+					
 					String ip = (clientSocket.getRemoteSocketAddress().toString());
 					out.println("welcome");
 					numVMs++;
