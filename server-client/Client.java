@@ -16,32 +16,31 @@ public class Client {
     public static void main(String[] args) throws IOException, InterruptedException {
     	System.out.println("Client Running");
     	int connattempts = 0;
-    	//Socket s = new Socket("192.168.122.1", 9090);
-    	try{
-    		Socket s = new Socket("192.168.122.1", 9090);
-    		
-        	BufferedReader input = new BufferedReader(new InputStreamReader(s.getInputStream()));
-            
-            String welcome = input.readLine();
-            System.out.println(welcome);
-            
-            //collect ip address
-            
-    		//collect time 
-    		String time = time();
-    		
-    		PrintWriter out = new PrintWriter(s.getOutputStream(), true);
-            
-    		
-            out.println(time);
-            s.close();
-           
+    	while (connattempts <= 10) {
+	    	try{
+	    		Socket s = new Socket("192.168.122.1", 9090);
+	    		//Exception would be caught right here
+	        	BufferedReader input = new BufferedReader(new InputStreamReader(s.getInputStream()));
+	        	//shows that they have connected
+	            String welcome = input.readLine();
+	            System.out.println(welcome);
+	            
+	    		//collect time 
+	    		String time = time();
+	    		PrintWriter out = new PrintWriter(s.getOutputStream(), true);
+	            out.println(time);
+	            s.close();
+	            //We no longer need the java side here because the VM has already checked in
+	    	}
+	    	catch(Exception e) {
+	    		connattempts++;
+	    		Thread.sleep(1000);
+	    	}
     	}
-    	catch(Exception e) {
-    		connattempts++;
-    		Thread.sleep(1000);
+    	if (connattempts >= 10) {
+    		System.out.println("Sorry the server is probaly not up or you have the wrong ip");
+    		return;
     	}
-    
     }
   
 }
