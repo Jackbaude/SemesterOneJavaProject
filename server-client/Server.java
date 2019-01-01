@@ -37,31 +37,35 @@ public class Server {
 	}
 	
 	public static void main(String[] args)throws IOException{ 
-		dashboard();
-		System.out.println("Server Running");
-		//TODO check if socket is busy and bail if so
+		//dashboard();
+		try {
 		ServerSocket server = new ServerSocket(9090);
-		while (true) {
-			try ( 	
-				    Socket clientSocket = server.accept();
-					PrintWriter out = new PrintWriter(clientSocket.getOutputStream(), true);
-				    BufferedReader in = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
-				    
-				){
-				//TODO substring on this>
-				String ip = clientSocket.getRemoteSocketAddress().toString();
-				
-				System.out.println(ip);
-				out.println("welcome");
-				time = in.readLine();
-				numVMs++;
-				System.out.println(numVMs);
-				System.out.println(time);
-			}
-			finally {
-				//server.close();
+			while (true) {
+				try ( 	
+						Socket clientSocket = server.accept();
+						PrintWriter out = new PrintWriter(clientSocket.getOutputStream(), true);
+					    BufferedReader in = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
+					){
+					System.out.println("Server Running");
+					String ip = (clientSocket.getRemoteSocketAddress().toString());
+					out.println("welcome");
+					numVMs++;
+					time = in.readLine();
+					System.out.println("Virtual Machine Number" + numVMs);
+					System.out.println(ip.substring(1, (ip.indexOf(":"))));
+					System.out.println(time);
+
+				}
+				finally {
+					//server.close();
+				}
 			}
 		}
+		catch(Exception e) {
+			System.out.print("Sorry there is already a server runnning on this host!");
+			return;
+		}
+		
 	}
 
 	
