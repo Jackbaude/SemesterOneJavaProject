@@ -9,7 +9,6 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 public class Server {
 	public static int numVMs = 0;
-	public static String ip;
 	public static String time;
 	//private static ServerSocket server;
 	public static  Object[][] data = new Object[50][3];
@@ -30,35 +29,39 @@ public class Server {
 		
 		if (c != 0) {
 			data[c - 1][0] = (c);
-			data[c - 1][1] = ip;
+			//data[c - 1][1] = ip;
 			data[c - 1][2] = time;
 		}
 		dashboard.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		dashboard.pack();
 	}
 	
-	public static void main(String[] args)throws IOException, InterruptedException { 
+	public static void main(String[] args)throws IOException{ 
 		dashboard();
 		System.out.println("Server Running");
+		//TODO check if socket is busy and bail if so
 		ServerSocket server = new ServerSocket(9090);
-		try ( 	
-			    Socket clientSocket = server.accept();
-				PrintWriter out = new PrintWriter(clientSocket.getOutputStream(), true);
-			    BufferedReader in = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
-			    
-			){
-			out.println("welcome");
-			ip = in.readLine();
-			time = in.readLine();
-
-			numVMs++;
-			System.out.println(ip);
-			System.out.println(time);
+		while (true) {
+			try ( 	
+				    Socket clientSocket = server.accept();
+					PrintWriter out = new PrintWriter(clientSocket.getOutputStream(), true);
+				    BufferedReader in = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
+				    
+				){
+				//TODO substring on this>
+				String ip = clientSocket.getRemoteSocketAddress().toString();
+				
+				System.out.println(ip);
+				out.println("welcome");
+				time = in.readLine();
+				numVMs++;
+				System.out.println(numVMs);
+				System.out.println(time);
+			}
+			finally {
+				//server.close();
+			}
 		}
-		finally {
-			//server.close();
-		}
-	
 	}
 
 	
