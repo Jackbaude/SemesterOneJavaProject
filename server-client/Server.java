@@ -1,3 +1,6 @@
+/*TODO
+Finish dashboard
+*/
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -7,6 +10,7 @@ import java.net.Socket;
 import javax.swing.JFrame;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
+import javax.swing.table.DefaultTableModel;
 public class Server {
 	public static int numVMs = 0;
 	public static String time;
@@ -14,30 +18,26 @@ public class Server {
 	public static  Object[][] data = new Object[50][3];
 	public static String[] columnHeaders = new String[] {
             "Number", "I.P", "Up Time"};
-	//dashboard code
-	/*TODO make my dashboard dynamic
-	use addRow jframe class
-	*/
-	public static void dashboard() {
+	public static DefaultTableModel model = new DefaultTableModel();
+	public static JTable table = new JTable(model);
+	public static void dashboard() throws InterruptedException {
 		JFrame dashboard = new JFrame("Dashboard");
     	dashboard.setVisible(true);	
 		dashboard.setTitle("Dashboard Information");
 		dashboard.setBounds((960 - 250), (540 - 250), 500, 500);
-		JTable table = new JTable(data, columnHeaders); 
-		dashboard.add(new JScrollPane(table));
-		int c = numVMs;
 		
-		if (c != 0) {
-			data[c - 1][0] = (c);
-			//data[c - 1][1] = ip;
-			data[c - 1][2] = time;
-		}
+		dashboard.add(new JScrollPane(table));
+		
 		dashboard.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		dashboard.pack();
+		
+		model.addColumn("Number");
+		model.addColumn("I.P.");
+		model.addColumn("Up Time");
 	}
 	
-	public static void main(String[] args)throws IOException{ 
-		//dashboard();
+	public static void main(String[] args)throws IOException, InterruptedException{ 
+		dashboard();
 		try {
 		ServerSocket server = new ServerSocket(9090);
 		System.out.println("Server Running");
@@ -47,15 +47,15 @@ public class Server {
 						PrintWriter out = new PrintWriter(clientSocket.getOutputStream(), true);
 					    BufferedReader in = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
 					){
-					
 					String ip = (clientSocket.getRemoteSocketAddress().toString());
 					out.println("welcome");
 					numVMs++;
 					time = in.readLine();
-					System.out.println("Virtual Machine Number" + numVMs);
+					model.addRow(new Object[] {numVMs, (ip.substring(1, (ip.indexOf(":")))), time});
+				
+					System.out.println("Virtual Machine Number " + numVMs);
 					System.out.println(ip.substring(1, (ip.indexOf(":"))));
 					System.out.println(time);
-
 				}
 				finally {
 					//server.close();
